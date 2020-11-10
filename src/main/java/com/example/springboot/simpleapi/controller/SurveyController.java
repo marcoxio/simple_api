@@ -1,6 +1,7 @@
 package com.example.springboot.simpleapi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -17,8 +18,8 @@ public class SurveyController {
     private SurveyService surveyService;
 
     @GetMapping("/surveys/{surveyId}/questions")
-    public List<Question> retrieveQuestions(@PathVariable String surveyId) {
-        return surveyService.retrieveQuestions(surveyId);
+    public ResponseEntity<List<Question>> retrieveQuestions(@PathVariable String surveyId) {
+        return new ResponseEntity<>(surveyService.retrieveQuestions(surveyId), HttpStatus.OK);
     }
 
     @GetMapping("/surveys/{surveyId}/questions/{questionId}")
